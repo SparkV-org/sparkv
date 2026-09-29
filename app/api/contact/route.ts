@@ -1,0 +1,65 @@
+import { NextResponse } from "next/server";
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ALLOWED_PROJECT_TYPES = new Set([
+  "Website", "Web App", "Mobile App", "AI Agent", "Voice Agent",
+  "Automation", "AI System", "Other",
+]);
+
+function text(value: unknown, maxLength: number) {
+  return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
+}
+
+export async function POST(request: Request) {
+  let body: Record<string, unknown>;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+  }
+
+  if (text(body.companyWebsite, 200)) return NextResponse.json({ ok: true });
+
+  const name = text(body.name, 100);
+  const email = text(body.email, 254).toLowerCase();
+  const projectType = text(body.projectType, 50);
+  const brief = text(body.brief, 5000);
+  if (name.length < 2 || !EMAIL_PATTERN.test(email) || !ALLOWED_PROJECT_TYPES.has(projectType) || brief.length < 10) {
+    return NextResponse.json(
+      { error: "Please complete every field with valid project information." },
+      { status: 422 },
+    );
+  }
+
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = process.env.CONTACT_TO_EMAIL;
+  const from = process.env.CONTACT_FROM_EMAIL ?? "SparkV Website <onboarding@resend.dev>";
+  if (!apiKey || !to) {
+    console.error("Contact form is missing RESEND_API_KEY or CONTACT_TO_EMAIL.");
+    return NextResponse.json(
+      { error: "Project intake is temporarily unavailable. Please try again shortly." },
+      { status: 503 },
+    );
+  }
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from,
+      to: [to],
+      reply_to: email,
+      subject: `New SparkV project brief: ${projectType}`,
+      text: [`Name: ${name}`, `Email: ${email}`, `Project type: ${projectType}`, "", brief].join("\n"),
+    }),
+  });
+
+  if (!response.ok) {
+    console.error("Resend rejected contact submission", response.status, await response.text());
+    return NextResponse.json(
+      { error: "We could not deliver your project brief. Please try again." },
+      { status: 502 },
+    );
+  }
+  return NextResponse.json({ ok: true });
+}

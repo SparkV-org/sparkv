@@ -66,6 +66,7 @@ html[data-theme="light"] .hero-grid,.theme-light .hero-grid{opacity:.44;backgrou
 
 /* Responsive hardening */
 body{overflow-x:clip}
+.form-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}.form-error{margin:0;color:#d91520;font-size:13px;line-height:1.5}.button:disabled,.back:disabled{cursor:not-allowed;opacity:.55;transform:none}
 .icon-button,.menu-button{width:44px;height:44px}
 .agent-panel{height:min(570px,calc(100dvh - 110px))}
 .agent-panel>header button{width:44px;height:44px;display:grid;place-items:center}
