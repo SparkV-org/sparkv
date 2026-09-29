@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { ownerProjectTemplate, visitorThankYouTemplate } from "@/lib/email-templates";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const ALLOWED_PROJECT_TYPES = new Set([
@@ -34,7 +35,7 @@ export async function POST(request: Request) {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO_EMAIL;
   const from = process.env.CONTACT_FROM_EMAIL ?? "SparkV Website <onboarding@resend.dev>";
-  if (!apiKey || !to) {
+  if (!apiKey?.startsWith("re_") || !to) {
     console.error("Contact form is missing RESEND_API_KEY or CONTACT_TO_EMAIL.");
     return NextResponse.json(
       { error: "Project intake is temporarily unavailable. Please try again shortly." },
@@ -42,16 +43,16 @@ export async function POST(request: Request) {
     );
   }
 
-  const response = await fetch("https://api.resend.com/emails", {
+  const project = { name, email, projectType, brief };
+  const ownerEmail = ownerProjectTemplate(project);
+  const thankYouEmail = visitorThankYouTemplate(project);
+  const response = await fetch("https://api.resend.com/emails/batch", {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from,
-      to: [to],
-      reply_to: email,
-      subject: `New SparkV project brief: ${projectType}`,
-      text: [`Name: ${name}`, `Email: ${email}`, `Project type: ${projectType}`, "", brief].join("\n"),
-    }),
+    body: JSON.stringify([
+      { from, to: [to], reply_to: email, ...ownerEmail },
+      { from, to: [email], reply_to: to, ...thankYouEmail },
+    ]),
   });
 
   if (!response.ok) {
