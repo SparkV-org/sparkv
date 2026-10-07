@@ -430,3 +430,72 @@ body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvet
 .desktop-nav a{position:relative;transition:color .2s}.desktop-nav a:after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .25s ease}.desktop-nav a:hover:after,.desktop-nav a.active:after{transform:scaleX(1)}
 .site-agent{bottom:max(20px,env(safe-area-inset-bottom))}
 html,body{overflow-x:clip}
+
+/* --- Hero + motion redesign --- */
+.hw{display:inline-block;opacity:0;transform:translateY(.45em);animation:wordIn .75s cubic-bezier(.16,1,.3,1) forwards;animation-delay:calc(.1s + var(--i)*.07s)}
+.hero h1 em .hw{animation-delay:calc(.1s + (var(--i) + 5)*.07s)}
+@keyframes wordIn{to{opacity:1;transform:none}}
+.hero-audience{max-width:560px;margin:18px 0 0;padding-left:14px;border-left:2px solid var(--red);color:rgba(255,255,255,.82);font-size:14px;line-height:1.55;letter-spacing:-.005em}
+.theme-light .hero-audience{color:rgba(0,0,0,.72)}
+.packet{fill:var(--red);filter:drop-shadow(0 0 6px var(--red));offset-rotate:0deg;opacity:0;animation:packetRun 5.2s cubic-bezier(.45,0,.25,1) infinite}
+.pk1{offset-path:path("M130 125 L320 250 L510 390")}
+.pk2{offset-path:path("M130 390 L320 250 L510 125");animation-delay:1.7s}
+.pk3{offset-path:path("M130 125 L320 250 L130 390");animation-delay:3.4s}
+@keyframes packetRun{0%{offset-distance:0%;opacity:0}10%{opacity:1}90%{opacity:1}100%{offset-distance:100%;opacity:0}}
+.hero-paused *,.hero-paused *:before,.hero-paused *:after{animation-play-state:paused!important}
+.system-stage .stage-topline span:last-child{font-variant-numeric:tabular-nums}
+
+/* agent flow: input -> reasoning -> action -> outcome */
+.flow-step{transition:border-color .35s,background-color .35s,box-shadow .35s,transform .35s}
+.flow-step>span{transition:background-color .3s,color .3s,border-color .3s}
+.flow-step.active{border-color:var(--red);box-shadow:0 0 0 1px rgba(240,24,34,.35),0 12px 30px rgba(240,24,34,.12);transform:translateY(-3px)}
+.flow-step.active>span{background:var(--red);color:#fff}
+.flow-step.done>span{background:rgba(240,24,34,.14);border-color:var(--red)}
+.flow-step.done small,.flow-step.active small{color:var(--red)}
+.flow-step>i{transform-origin:left;transform:scaleX(.35);opacity:.4;transition:transform .5s,opacity .5s}
+.flow-step.done>i{transform:scaleX(1);opacity:1}
+
+/* process: connected journey */
+.process-list{position:relative}
+.process-list:before{content:"";position:absolute;left:12px;top:24px;bottom:24px;width:1px;background:var(--line)}
+.process-list:after{content:"";position:absolute;left:12px;top:24px;bottom:24px;width:1px;background:var(--red);box-shadow:0 0 10px rgba(240,24,34,.5);transform-origin:top;transform:scaleY(0);animation:processFill linear both;animation-timeline:view();animation-range:entry 20% cover 70%}
+@keyframes processFill{to{transform:scaleY(1)}}
+.process-list article{position:relative}
+.process-list article>span:before{content:"";position:absolute;left:-34px;top:50%;width:9px;height:9px;margin-top:-4px;border:1px solid var(--red);background:var(--background);border-radius:50%;transition:background-color .4s,box-shadow .4s}
+.process-list article.is-visible>span:before{background:var(--red);box-shadow:0 0 10px rgba(240,24,34,.6)}
+@media(max-width:700px){.process-list:before,.process-list:after{left:4px}.process-list article>span:before{left:-26px}}
+
+/* stagger + micro-interactions */
+.service-card.motion-observe:nth-child(4){transition-delay:.24s}.service-card.motion-observe:nth-child(5){transition-delay:.32s}.service-card.motion-observe:nth-child(6){transition-delay:.4s}
+.process-list article.motion-observe:nth-child(n){transition-delay:0s}
+.button svg,.header-cta svg,.service-card a svg{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.button:hover svg,.header-cta:hover svg{transform:translate(2px,-2px)}
+.service-card a:hover svg{transform:translateX(4px)}
+.button{transition:transform .2s,box-shadow .25s,background-color .25s,border-color .25s}.button:active{transform:translateY(1px) scale(.99)}
+.button-primary:hover{box-shadow:0 10px 30px rgba(240,24,34,.35);transform:translateY(-1px)}
+.intake input:focus-visible,.intake textarea:focus-visible{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(240,24,34,.2)}
+.intake input,.intake textarea{transition:border-color .2s,box-shadow .2s}
+.faq-list details p{animation:faqIn .3s ease}@keyframes faqIn{from{opacity:0;transform:translateY(-4px)}}
+
+@media(prefers-reduced-motion:reduce){
+ .hw{opacity:1!important;transform:none!important;animation:none!important}
+ .packet{display:none}
+ .process-list:after{animation:none;transform:scaleY(1)}
+ .flow-step,.flow-step>i{transition:none}
+ .faq-list details p{animation:none}
+}
+
+.hw{margin-right:.24em}.hw:last-child{margin-right:0}.hero h1>span>.hw:last-of-type{margin-right:.24em}
+.process-list{padding-left:28px}
+.process-list:before,.process-list:after{left:4px}
+.process-list article>span:before{left:-28px}
+@media(max-width:700px){.process-list{padding-left:24px}.process-list:before,.process-list:after{left:3px}.process-list article>span:before{left:-24px}}
+
+/* Stage flows below the copy on narrow screens (no hard-coded pixel offsets) */
+@media(max-width:920px){
+ .hero{min-height:0;padding-bottom:56px}
+ .hero .system-stage{position:relative;top:auto;left:auto;right:auto;transform:none;width:min(680px,100%);height:320px;margin:48px auto 0}
+}
+@media(max-width:620px){
+ .hero .system-stage{height:230px;margin-top:40px}
+}
