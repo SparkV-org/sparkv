@@ -1,7 +1,14 @@
 import type { MetadataRoute } from "next";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sparkv.vercel.app";
+import { SERVICES } from "@/lib/services";
+import { CONTENT_UPDATED, absoluteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [{ url: SITE_URL, lastModified: new Date(), changeFrequency: "monthly", priority: 1 }];
+  // Only canonical, indexable, 200-status URLs. lastModified is the date the content was
+  // actually revised, not the build time.
+  const lastModified = new Date(CONTENT_UPDATED);
+  return [
+    { url: absoluteUrl("/"), lastModified, priority: 1 },
+    { url: absoluteUrl("/services"), lastModified, priority: 0.8 },
+    ...SERVICES.map((s) => ({ url: absoluteUrl(`/services/${s.slug}`), lastModified, priority: 0.7 })),
+  ];
 }

@@ -1,0 +1,18 @@
+# SparkV
+
+> SparkV designs and builds websites, web and mobile applications, AI agents, and business automation: production-ready software for founders, operators, and engineering teams.
+
+This file is supplemental documentation for language-model retrieval. The canonical source of truth is the website itself.
+
+## Services
+
+- [Services overview](https://sparkv.si/services): All services at a glance.
+- [Web & mobile development](https://sparkv.si/services/web-development): Websites, web applications, SaaS platforms, APIs, and iOS, Android, and cross-platform apps.
+- [Custom software & business platforms](https://sparkv.si/services/custom-software): Operations software such as production management, and multi-tenant, white-label platforms.
+- [AI agents](https://sparkv.si/services/ai-agents): Sales, support, research, and voice agents with guardrails and human escalation.
+- [AI & business automation](https://sparkv.si/services/ai-automation): Workflows from trigger to outcome, with AI processing and human approval steps.
+
+## Company
+
+- [Homepage](https://sparkv.si/): Overview, process, and the project intake form.
+- [Start a project](https://sparkv.si/#contact): Describe the problem, current workflow, and desired outcome.

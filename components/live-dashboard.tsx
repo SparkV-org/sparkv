@@ -99,7 +99,7 @@ export function LiveDashboard() {
   ];
 
   return (
-    <div className="command-dashboard" ref={ref}>
+    <div className="command-dashboard" ref={ref} data-nosnippet>
       <aside className="dash-rail" aria-hidden="true">
         <SparkVLogo />
         <nav>

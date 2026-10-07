@@ -1,55 +1,77 @@
 import type { Metadata, Viewport } from "next";
+import "./globals.css";
+import { JsonLd } from "@/components/json-ld";
+import { IS_INDEXABLE, OG_IMAGE, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sparkv.vercel.app";
-const DESCRIPTION = "SparkV designs and builds production-ready software, AI agents, voice systems, and intelligent automation for modern businesses.";
+const DEFAULT_TITLE = "SparkV | Custom Software, AI Agents & Business Automation";
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#08080a" }, { media: "(prefers-color-scheme: light)", color: "#ffffff" }],
-};
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    { "@type": "Organization", name: "SparkV", url: SITE_URL, logo: `${SITE_URL}/sparkv-logo.png`, description: DESCRIPTION },
-    { "@type": "WebSite", name: "SparkV", url: SITE_URL },
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#08080a" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
   ],
 };
-import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  alternates: { canonical: "/" },
-  robots: { index: true, follow: true },
-  title: "SparkV — Software, AI & Automation",
-  description: "SparkV designs and builds production-ready software, AI agents, voice systems, and intelligent automation for modern businesses.",
-  keywords: ["software development", "AI agents", "business automation", "voice AI", "web application development"],
+  title: { default: DEFAULT_TITLE, template: "%s | SparkV" },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  alternates: { canonical: SITE_URL },
+  robots: IS_INDEXABLE
+    ? { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } }
+    : { index: false, follow: false },
   openGraph: {
-    title: "SparkV — Software, AI & Automation",
-    description: "Production-ready software, AI agents, voice systems, and intelligent automation.",
     type: "website",
     url: SITE_URL,
-    siteName: "SparkV",
-    images: [{ url: "/sparkv-logo.png", alt: "SparkV" }],
+    siteName: SITE_NAME,
+    title: DEFAULT_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE],
   },
   twitter: {
-    card: "summary",
-    title: "SparkV — Software, AI & Automation",
-    description: "Production-ready software, AI agents, voice systems, and intelligent automation.",
+    card: "summary_large_image",
+    title: DEFAULT_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE.url],
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icon.png", type: "image/png", sizes: "192x192" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const siteJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/sparkv-logo.png` },
+      description: SITE_DESCRIPTION,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: SITE_NAME,
+      description: SITE_DESCRIPTION,
+      publisher: { "@id": `${SITE_URL}/#organization` },
+      inLanguage: "en",
+    },
+  ],
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -60,8 +82,8 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-        <a href="#top" className="skip-link">Skip to content</a>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <a href="#main" className="skip-link">Skip to content</a>
+        <JsonLd data={siteJsonLd} />
         {children}
       </body>
     </html>
