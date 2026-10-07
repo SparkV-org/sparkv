@@ -41,3 +41,4 @@ jobs:
           path: .lighthouseci
           retention-days: 90
           if-no-files-found: ignore
+          include-hidden-files: true  # .lighthouseci is a dot-directory; v4 skips those by default
