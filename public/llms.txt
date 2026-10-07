@@ -6,13 +6,13 @@ This file is supplemental documentation for language-model retrieval. The canoni
 
 ## Services
 
-- [Services overview](https://sparkv.si/services): All services at a glance.
-- [Web & mobile development](https://sparkv.si/services/web-development): Websites, web applications, SaaS platforms, APIs, and iOS, Android, and cross-platform apps.
-- [Custom software & business platforms](https://sparkv.si/services/custom-software): Operations software such as production management, and multi-tenant, white-label platforms.
-- [AI agents](https://sparkv.si/services/ai-agents): Sales, support, research, and voice agents with guardrails and human escalation.
-- [AI & business automation](https://sparkv.si/services/ai-automation): Workflows from trigger to outcome, with AI processing and human approval steps.
+- [Services overview](https://www.sparkv.si/services): All services at a glance.
+- [Web & mobile development](https://www.sparkv.si/services/web-development): Websites, web applications, SaaS platforms, APIs, and iOS, Android, and cross-platform apps.
+- [Custom software & business platforms](https://www.sparkv.si/services/custom-software): Operations software such as production management, and multi-tenant, white-label platforms.
+- [AI agents](https://www.sparkv.si/services/ai-agents): Sales, support, research, and voice agents with guardrails and human escalation.
+- [AI & business automation](https://www.sparkv.si/services/ai-automation): Workflows from trigger to outcome, with AI processing and human approval steps.
 
 ## Company
 
-- [Homepage](https://sparkv.si/): Overview, process, and the project intake form.
-- [Start a project](https://sparkv.si/#contact): Describe the problem, current workflow, and desired outcome.
+- [Homepage](https://www.sparkv.si/): Overview, process, and the project intake form.
+- [Start a project](https://www.sparkv.si/#contact): Describe the problem, current workflow, and desired outcome.

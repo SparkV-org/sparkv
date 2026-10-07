@@ -32,7 +32,7 @@ export default function OpenGraphImage() {
             Custom software · AI agents · Business automation
           </div>
         </div>
-        <div style={{ fontSize: 26, color: "#f01822" }}>sparkv.si</div>
+        <div style={{ fontSize: 26, color: "#f01822" }}>www.sparkv.si</div>
       </div>
     ),
     size,

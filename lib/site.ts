@@ -5,7 +5,7 @@
  * in the hosting dashboard previously made canonicals, Open Graph URLs, schema and the
  * sitemap point at the *.vercel.app host instead of the real domain.
  */
-export const SITE_URL = "https://sparkv.si";
+export const SITE_URL = "https://www.sparkv.si";
 export const SITE_NAME = "SparkV";
 export const SITE_TAGLINE = "Custom software, AI agents & business automation";
 export const SITE_DESCRIPTION =
