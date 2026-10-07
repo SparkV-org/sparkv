@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { JsonLd } from "@/components/json-ld";
-import { IS_INDEXABLE, OG_IMAGE, SITE_COUNTRY_CODE, SITE_DESCRIPTION, SITE_EMAIL, SITE_NAME, SITE_REGION, SITE_URL } from "@/lib/site";
+import { BING_SITE_VERIFICATION, GOOGLE_SITE_VERIFICATION, IS_INDEXABLE, SOCIAL_PROFILES, OG_IMAGE, SITE_COUNTRY_CODE, SITE_DESCRIPTION, SITE_EMAIL, SITE_NAME, SITE_REGION, SITE_URL } from "@/lib/site";
 
 const DEFAULT_TITLE = "SparkV | Custom Software, AI Agents & Business Automation";
 
@@ -38,6 +38,14 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [OG_IMAGE.url],
   },
+  ...(GOOGLE_SITE_VERIFICATION || BING_SITE_VERIFICATION
+    ? {
+        verification: {
+          ...(GOOGLE_SITE_VERIFICATION ? { google: GOOGLE_SITE_VERIFICATION } : {}),
+          ...(BING_SITE_VERIFICATION ? { other: { "msvalidate.01": BING_SITE_VERIFICATION } } : {}),
+        },
+      }
+    : {}),
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
@@ -61,6 +69,7 @@ const siteJsonLd = {
       email: SITE_EMAIL,
       address: { "@type": "PostalAddress", addressRegion: SITE_REGION, addressCountry: SITE_COUNTRY_CODE },
       contactPoint: { "@type": "ContactPoint", contactType: "customer support", email: SITE_EMAIL },
+      ...(SOCIAL_PROFILES.length ? { sameAs: SOCIAL_PROFILES.map((p) => p.url) } : {}),
     },
     {
       "@type": "WebSite",

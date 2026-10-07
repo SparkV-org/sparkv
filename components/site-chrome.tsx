@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SparkVLogo } from "@/components/sparkv-logo";
 import { SERVICES } from "@/lib/services";
-import { SITE_COUNTRY, SITE_EMAIL, SITE_REGION } from "@/lib/site";
+import { SITE_COUNTRY, SITE_EMAIL, SITE_REGION, SOCIAL_PROFILES } from "@/lib/site";
 
 /** Server-rendered header/footer for pages other than the homepage. No client JS required. */
 export function SiteHeader() {
@@ -24,6 +24,22 @@ export function SiteHeader() {
         </Link>
       </div>
     </header>
+  );
+}
+
+/** "Follow" link list; renders nothing until SOCIAL_PROFILES has entries. Shared by both footers. */
+export function FooterFollow() {
+  if (!SOCIAL_PROFILES.length) return null;
+  return (
+    <div>
+      <strong>Follow</strong>
+      {SOCIAL_PROFILES.map((p) => (
+        <a key={p.url} href={p.url} rel="me noopener" target="_blank">
+          {p.name}
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
+      ))}
+    </div>
   );
 }
 
@@ -53,7 +69,9 @@ export function SiteFooter() {
           <Link href="/#process">Process</Link>
           <Link href="/#about">About</Link>
           <Link href="/#contact">Contact</Link>
+          <Link href="/privacy">Privacy</Link>
         </div>
+        <FooterFollow />
         <Link href="/" className="back-top">
           Home <ArrowUpRight />
         </Link>
