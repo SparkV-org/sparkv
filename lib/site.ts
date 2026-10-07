@@ -16,6 +16,18 @@ export const SITE_TAGLINE = "Custom software, AI agents & business automation";
 export const SITE_DESCRIPTION =
   "SparkV designs and builds websites, web apps, AI agents, and business automation—production-ready software for founders, operators, and engineering teams.";
 
+/**
+ * Official social/profile URLs. Keep EMPTY until the accounts exist and are public.
+ * Entries here feed the Organization `sameAs` schema and the footer "Follow" list;
+ * when empty, neither is rendered. Never add placeholders or unverified URLs.
+ * Example shape: { name: "LinkedIn", url: "https://www.linkedin.com/company/<slug>" }
+ */
+export const SOCIAL_PROFILES: { name: string; url: string }[] = [];
+
+/** Search-console verification tokens (the content value only). Empty = no meta tag emitted. */
+export const GOOGLE_SITE_VERIFICATION = "";
+export const BING_SITE_VERIFICATION = "";
+
 /** Date the public content was last meaningfully revised (used by the sitemap and schema). */
 export const CONTENT_UPDATED = "2026-10-07";
 

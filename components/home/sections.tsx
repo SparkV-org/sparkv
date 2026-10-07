@@ -9,6 +9,7 @@ import { SectionIntro } from "./section-intro";
 import { AgentConsole } from "./agent-console";
 import { ContactForm } from "./contact-form";
 import { SITE_COUNTRY, SITE_EMAIL, SITE_REGION } from "@/lib/site";
+import { FooterFollow } from "@/components/site-chrome";
 
 export function Sections(){
  return <>
@@ -36,5 +37,5 @@ export function Sections(){
 }
 
 export function Footer(){
- return <footer><div className="footer-main"><div><SparkVLogo/><p>Software. AI. Automation.<br/>Built for what’s next.</p></div><div><strong>Services</strong><Link href="/services/custom-software">Custom software</Link><Link href="/services/web-development">Web & mobile</Link><Link href="/services/ai-agents">AI agents</Link><Link href="/services/ai-automation">AI automation</Link></div><div><strong>Company</strong><a href="#work">Work</a><a href="#process">Process</a><a href="#about">About</a><a href="#contact">Contact</a></div><a href="#top" className="back-top">Back to top <ArrowUpRight/></a></div><div className="footer-bottom"><span>© 2026 SparkV. All rights reserved.</span><span><a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a> · {SITE_REGION}, {SITE_COUNTRY}</span></div></footer>
+ return <footer><div className="footer-main"><div><SparkVLogo/><p>Software. AI. Automation.<br/>Built for what’s next.</p></div><div><strong>Services</strong><Link href="/services/custom-software">Custom software</Link><Link href="/services/web-development">Web & mobile</Link><Link href="/services/ai-agents">AI agents</Link><Link href="/services/ai-automation">AI automation</Link></div><div><strong>Company</strong><a href="#work">Work</a><a href="#process">Process</a><a href="#about">About</a><a href="#contact">Contact</a><Link href="/privacy">Privacy</Link></div><FooterFollow/><a href="#top" className="back-top">Back to top <ArrowUpRight/></a></div><div className="footer-bottom"><span>© 2026 SparkV. All rights reserved.</span><span><a href={`mailto:${SITE_EMAIL}`}>{SITE_EMAIL}</a> · {SITE_REGION}, {SITE_COUNTRY}</span></div></footer>
 }
