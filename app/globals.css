@@ -656,3 +656,10 @@ fieldset.project-fieldset>legend{padding:0;margin-bottom:12px}
 .project-types input[type=radio]:focus-visible+span{outline:2px solid var(--red);outline-offset:3px}
 .intake [aria-invalid="true"]{border-color:#d91520}
 @media(prefers-reduced-motion:reduce){.site-agent *,.mobile-menu,.header-cta{transition:none!important;animation:none!important}}
+
+/* a11y-2 */
+.mobile-menu nav{display:flex;flex-direction:column}
+.mobile-menu nav a:last-child{border-bottom:0}
+html[data-theme="light"] .workflow-state small{color:#c8101a}
+html[data-theme="light"] .eyebrow,html[data-theme="light"] .hero-meta,html[data-theme="light"] .stage-topline,html[data-theme="light"] .hero-meta span,html[data-theme="light"] .stage-topline span{color:rgba(0,0,0,.62)}
+.hero-grid,.hero-glow,.hero .system-lines,.hero .system-ring,.visual-sheen{pointer-events:none}
