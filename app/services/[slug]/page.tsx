@@ -140,7 +140,7 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
             <section aria-labelledby="compare">
               <h2 id="compare">{service.comparison.title}</h2>
               <p>{service.comparison.intro}</p>
-              <div style={{ overflowX: "auto" }}>
+              <div style={{ overflowX: "auto" }} className="table-scroll" role="region" aria-label={`${service.comparison.title} (scrollable table)`} tabIndex={0}>
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.95rem" }}>
                   <thead>
                     <tr>{service.comparison.columns.map((c, i) => <th key={i} scope="col" style={{ textAlign: "left", padding: "10px 12px", borderBottom: "1px solid var(--line)" }}>{c || "Aspect"}</th>)}</tr>

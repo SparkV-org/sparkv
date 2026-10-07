@@ -71,7 +71,7 @@ export default function ServicesPage() {
         </ul>
         <section aria-labelledby="which">
           <h2 id="which">Which service fits which problem</h2>
-          <div style={{ overflowX: "auto" }}>
+          <div style={{ overflowX: "auto" }} className="table-scroll" role="region" aria-label="Which service fits which problem (scrollable table)" tabIndex={0}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.95rem" }}>
               <thead>
                 <tr>

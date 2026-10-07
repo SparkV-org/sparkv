@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { SubMenu } from "@/components/sub-menu";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { SparkVLogo } from "@/components/sparkv-logo";
 import { SERVICES } from "@/lib/services";
 import { SITE_COUNTRY, SITE_EMAIL, SITE_REGION } from "@/lib/site";
@@ -19,9 +21,18 @@ export function SiteHeader() {
         <Link href="/#about">About</Link>
       </nav>
       <div className="header-actions">
+        <ThemeToggle />
         <Link href="/#contact" className="header-cta">
           Start a project <ArrowUpRight size={15} />
         </Link>
+        <SubMenu>
+          <Link href="/services">Services</Link>
+          <Link href="/#systems">Systems</Link>
+          <Link href="/#work">Work</Link>
+          <Link href="/#process">Process</Link>
+          <Link href="/#about">About</Link>
+          <Link href="/#contact">Contact</Link>
+        </SubMenu>
       </div>
     </header>
   );
