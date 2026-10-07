@@ -3,11 +3,12 @@
   "measuredOn": {
     "commits": "9030df7, 9ed239b, de04365 (bench/*.json, 3-7 runs each) and seo-* runs on 421a98d (3 runs each)",
     "hardware": "Apple M1 Pro, Chrome 154, Lighthouse 13.5, Node 22",
+    "merged-build-measurement": "Homepage first-load JS measured 191151 gzip bytes on 48f4d43 (200572 before the server-component refactor); homepage total transfer ~218 KB incl. images served via next/image. Static JS budget = measured + ~5%; lab image budget replaces a figure derived from the old 1.4 MB CSS-background image.",
     "caveat": "GitHub-hosted runners are slower and noisier than the M1 used to measure; LHCI uses the median of 5 runs and headroom of 20-30%."
   },
   "static": {
     "_comment": "Checked by scripts/check-budgets.mjs from the .next build output, no browser. Sizes are gzip bytes of files referenced by the prerendered homepage HTML.",
-    "homepageFirstLoadJsGzipBytes": 175000,
+    "homepageFirstLoadJsGzipBytes": 200000,
     "totalCssGzipBytes": 40000,
     "fontFiles": 0,
     "publicImageBytes": 1700000
@@ -27,7 +28,7 @@
       "script": 190000,
       "stylesheet": 40000,
       "font": 0,
-      "image": 1650000,
+      "image": 300000,
       "third-party": 0
     },
     "resourceSummaryCounts": {

@@ -38,7 +38,7 @@
             "resource-summary:script:size": ["error", { "maxNumericValue": 190000, "aggregationMethod": "median" }],
             "resource-summary:stylesheet:size": ["error", { "maxNumericValue": 40000, "aggregationMethod": "median" }],
             "resource-summary:font:size": ["error", { "maxNumericValue": 0, "aggregationMethod": "median" }],
-            "resource-summary:image:size": ["error", { "maxNumericValue": 1650000, "aggregationMethod": "median" }],
+            "resource-summary:image:size": ["error", { "maxNumericValue": 300000, "aggregationMethod": "median" }],
             "resource-summary:third-party:size": ["error", { "maxNumericValue": 0, "aggregationMethod": "median" }],
             "resource-summary:total:count": ["error", { "maxNumericValue": 30, "aggregationMethod": "median" }],
             "resource-summary:third-party:count": ["error", { "maxNumericValue": 0, "aggregationMethod": "median" }],
