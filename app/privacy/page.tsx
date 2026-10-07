@@ -76,7 +76,7 @@ export default function PrivacyPage() {
             <li>Vercel hosts the website, and as a host it handles ordinary request information such as IP addresses.</li>
             <li>Resend delivers the form emails, so your submitted details pass through it.</li>
           </ul>
-          <p>The on-page assistant works in your browser; the messages you type into it are not sent to us or to any third party. The site loads no external fonts or third-party scripts. If we enable privacy-friendly aggregate analytics or performance measurement, it would be provided through our host, and we would update this notice.</p>
+          <p>The on-page assistant works in your browser; the messages you type into it are not sent to us or to any third party. The site loads no external fonts and no advertising or tracking scripts from other companies. On the live site we use Vercel Web Analytics to count page views and clicks in aggregate, and Vercel Speed Insights to measure page speed. According to Vercel, Web Analytics does not set third-party cookies; it recognises a visit with a short-lived hash of the request that is discarded after 24 hours. We do not send your name, email address or project details to these tools.</p>
         </section>
 
         <section aria-labelledby="cookies">
