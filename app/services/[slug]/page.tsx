@@ -85,6 +85,21 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
             </div>
           </header>
 
+          <section aria-labelledby="terms">
+            <h2 id="terms">Key terms</h2>
+            <dl style={{ margin: 0 }}>
+              {service.terms.map((t) => (
+                <div key={t.term} style={{ margin: "0 0 14px" }}>
+                  <dt style={{ fontWeight: 600 }}>{t.term}</dt>
+                  <dd style={{ margin: 0, color: "var(--muted)" }}>
+                    {t.definition}
+                    {t.source && <> Source: <a href={t.source.url} rel="noopener" target="_blank">{t.source.label}</a>.</>}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+
           <div className="sub-grid">
             <section aria-labelledby="who">
               <h2 id="who">Who it’s for</h2>
@@ -121,6 +136,29 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
             </section>
           )}
 
+          {service.comparison && (
+            <section aria-labelledby="compare">
+              <h2 id="compare">{service.comparison.title}</h2>
+              <p>{service.comparison.intro}</p>
+              <div style={{ overflowX: "auto" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.95rem" }}>
+                  <thead>
+                    <tr>{service.comparison.columns.map((c, i) => <th key={i} scope="col" style={{ textAlign: "left", padding: "10px 12px", borderBottom: "1px solid var(--line)" }}>{c || "Aspect"}</th>)}</tr>
+                  </thead>
+                  <tbody>
+                    {service.comparison.rows.map((r) => (
+                      <tr key={r[0]}>
+                        <th scope="row" style={{ textAlign: "left", padding: "10px 12px", borderBottom: "1px solid var(--line)" }}>{r[0]}</th>
+                        <td style={{ padding: "10px 12px", borderBottom: "1px solid var(--line)" }}>{r[1]}</td>
+                        <td style={{ padding: "10px 12px", borderBottom: "1px solid var(--line)" }}>{r[2]}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          )}
+
           <section aria-labelledby="process">
             <h2 id="process">How a project runs</h2>
             <ol className="sub-steps">
@@ -141,6 +179,11 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
           <section aria-labelledby="deliver">
             <h2 id="deliver">What you get</h2>
             <ul className="sub-list">{service.deliverables.map((d) => <li key={d}>{d}</li>)}</ul>
+          </section>
+
+          <section aria-labelledby="limits">
+            <h2 id="limits">Scope and limits</h2>
+            <ul className="sub-list">{service.limits.map((l) => <li key={l}>{l}</li>)}</ul>
           </section>
 
           <section aria-labelledby="faq">

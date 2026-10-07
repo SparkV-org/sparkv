@@ -18,6 +18,12 @@ export type Service = {
   approach: { title: string; body: string }[];
   included: string[];
   extra?: { id: string; title: string; body: string; points: string[] };
+  /** Short definitions of terms used on the page */
+  terms: { term: string; definition: string; source?: { label: string; url: string } }[];
+  /** Optional truthful comparison table */
+  comparison?: { title: string; intro: string; columns: [string, string, string]; rows: [string, string, string][] };
+  /** Explicit scope and limits */
+  limits: string[];
   stack: string;
   deliverables: string[];
   faqs: { q: string; a: string }[];
@@ -37,6 +43,7 @@ const SCOPE_FAQ = {
   q: "How much does a project cost and how long does it take?",
   a: "It depends on scope, integrations, security, and rollout needs, so SparkV does not publish fixed prices or timelines. Describe the problem, the current workflow, and the outcome you want through the project form, and SparkV will respond with a focused technical path forward.",
 };
+const NO_PRICES = "SparkV does not publish fixed prices or timelines; they depend on scope, integrations, security, and rollout needs.";
 const START_FAQ = {
   q: "How do I start a project with SparkV?",
   a: "Use the “Start a project” form on the homepage. Share what you want to build, automate, or improve, including the current workflow and what success looks like.",
@@ -77,6 +84,17 @@ export const SERVICES: Service[] = [
       "iOS, Android, and cross-platform mobile apps",
       "Authentication, roles, and permissions",
       "Deployment, monitoring, and handoff",
+    ],
+    terms: [
+      { term: "Web application", definition: "Software used in a browser that has its own backend, data, and user accounts, as opposed to a mostly static website." },
+      { term: "API", definition: "A defined interface that lets one system read from or act on another, such as your product talking to a CRM." },
+      { term: "Observability", definition: "Logs, metrics, and monitoring that show how a system behaves in production so problems are found and understood quickly." },
+      { term: "Incremental modernization", definition: "Improving an existing system one high-value bottleneck at a time instead of replacing it all at once." },
+    ],
+    limits: [
+      NO_PRICES,
+      "The stack is chosen per project; the technologies listed on this page are those SparkV names on its site, not a fixed requirement.",
+      "Work starts from your goals and existing systems rather than from a fixed template.",
     ],
     stack:
       "The right stack depends on the problem. The technologies SparkV lists on its site include React, Next.js, Node.js, Python, PostgreSQL, AWS, and Docker, with AI models such as OpenAI added where AI creates real operational value.",
@@ -138,6 +156,28 @@ export const SERVICES: Service[] = [
         "Your branding, your customers, your commercial model",
       ],
     },
+    terms: [
+      { term: "Multi-tenant", definition: "One platform serving many customer organizations, with each organization’s data and users isolated from the others." },
+      { term: "White-label", definition: "A product you run and sell under your own brand." },
+      { term: "Role-based access control", definition: "Permissions assigned by role, so each person sees and changes only what their role allows." },
+      { term: "Source of truth", definition: "The single system where the current, authoritative version of a record lives." },
+    ],
+    comparison: {
+      title: "Custom software compared with an off-the-shelf tool",
+      intro: "Neither is always better. This is how they differ in the way SparkV approaches the choice.",
+      columns: ["", "Off-the-shelf tool", "Custom software"],
+      rows: [
+        ["Process", "You adapt your process to the tool", "Built around your workflow, data, and rules"],
+        ["Best when", "Your process is standard", "The process itself is part of your advantage"],
+        ["Starting point", "Configure what exists", "Study the process, then model data and permissions before screens"],
+        ["Growth", "Defined by what the tool offers", "Capabilities ship independently and connect into a larger platform later"],
+      ],
+    },
+    limits: [
+      NO_PRICES,
+      "The multi-customer platform scenario on this page is an example, not a description of a client.",
+      "SparkV chooses the stack per project after studying how your company works.",
+    ],
     stack:
       "Custom software is usually a combination of a web interface, a backend with a database, authentication, and integrations. SparkV chooses the stack per project and designs the data model and permissions before building screens.",
     deliverables: [
@@ -197,6 +237,27 @@ export const SERVICES: Service[] = [
         "A call summary sent after the conversation",
       ],
     },
+    terms: [
+      { term: "AI agent", definition: "Software that uses an AI model to reason about a goal, use tools, and take action within defined limits." },
+      { term: "Retrieval-augmented generation (RAG)", definition: "Giving an AI model relevant passages from your own documents at answer time, so responses draw on your knowledge rather than only on what the model was trained on.", source: { label: "Lewis et al., 2020, “Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks” (arXiv)", url: "https://arxiv.org/abs/2005.11401" } },
+      { term: "Guardrails", definition: "Rules that limit what an agent may do, which tools it may use, and when it must stop or ask." },
+      { term: "Escalation", definition: "Handing a conversation or decision to a person when the agent should not decide alone." },
+    ],
+    comparison: {
+      title: "AI agent compared with a fixed workflow",
+      intro: "Many systems combine both: a workflow for the predictable parts and an agent for the judgment calls.",
+      columns: ["", "Workflow automation", "AI agent"],
+      rows: [
+        ["How it works", "Follows a defined flow of steps", "Reasons about a goal and chooses actions"],
+        ["Best for", "Predictable, rule-based steps", "Judgment calls and open-ended conversations"],
+        ["Human oversight", "Approval steps placed in the flow", "Explicit checkpoints, approvals, and escalation rules"],
+      ],
+    },
+    limits: [
+      NO_PRICES,
+      "What an agent can do is defined by the integrations and permissions you approve.",
+      "This site does not state performance numbers or client results for agents.",
+    ],
     stack:
       "Agents combine an AI model, retrieval over your knowledge (RAG), tool integrations, and guardrails. SparkV selects models and tools per use case and keeps the surrounding software, security, and observability production-grade.",
     deliverables: [
@@ -209,6 +270,7 @@ export const SERVICES: Service[] = [
       { q: "Will an agent act without human review?", a: "Only where you decide it should. SparkV designs explicit checkpoints, and approvals can be required before anything is sent or changed." },
       { q: "How do you decide where AI belongs?", a: "SparkV starts with the decision or task. AI belongs where probabilistic reasoning creates value; deterministic rules remain deterministic; human review stays where risk requires it." },
       { q: "Can one agent work across several channels?", a: "Yes. A single agent can serve multiple channels, or you can use specialized agents that share knowledge, tools, and a unified inbox." },
+      SCOPE_FAQ,
       START_FAQ,
     ],
     related: ["ai-automation", "custom-software"],
@@ -257,6 +319,27 @@ export const SERVICES: Service[] = [
         "Comment and inbox handling with human escalation",
       ],
     },
+    terms: [
+      { term: "Workflow automation", definition: "A defined sequence of steps, started by a trigger, that runs without manual hand-offs." },
+      { term: "Human approval step", definition: "A step where a person reviews and approves before anything is sent or changed." },
+      { term: "Retrieval-augmented generation (RAG)", definition: "Giving an AI model relevant passages from your own documents at answer time, so answers draw on your knowledge.", source: { label: "Lewis et al., 2020, “Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks” (arXiv)", url: "https://arxiv.org/abs/2005.11401" } },
+      { term: "Webhook", definition: "A message one system sends to another when something happens, used to trigger a workflow." },
+    ],
+    comparison: {
+      title: "Automation compared with an AI agent",
+      intro: "Many systems combine both: a workflow for the predictable parts and an agent for the judgment calls.",
+      columns: ["", "Workflow automation", "AI agent"],
+      rows: [
+        ["How it works", "Follows a defined flow of steps", "Reasons about a goal and chooses actions"],
+        ["Best for", "Predictable, rule-based steps", "Judgment calls and open-ended conversations"],
+        ["Human oversight", "Approval steps placed anywhere in the flow", "Explicit checkpoints, approvals, and escalation rules"],
+      ],
+    },
+    limits: [
+      NO_PRICES,
+      "SparkV connects to the tools you already use through their APIs or webhooks, after mapping the available interfaces and security constraints.",
+      "Failure handling is designed before a flow is connected to production data.",
+    ],
     stack:
       "Automation is built on reliable software: queues, integrations, retries, and observability, with AI models and retrieval added at the steps that need judgment. SparkV designs failure handling before it connects the flow to production data.",
     deliverables: [

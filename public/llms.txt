@@ -4,6 +4,8 @@
 
 This file is supplemental documentation for language-model retrieval. The canonical source of truth is the website itself.
 
+SparkV does not publish fixed prices or timelines; they depend on scope, integrations, security, and rollout needs. Each service page includes definitions of key terms, who it is for, process, deliverables, and scope limits.
+
 ## Services
 
 - [Services overview](https://www.sparkv.si/services): All services at a glance.

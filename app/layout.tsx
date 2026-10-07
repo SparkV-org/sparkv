@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { JsonLd } from "@/components/json-ld";
-import { IS_INDEXABLE, OG_IMAGE, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
+import { IS_INDEXABLE, OG_IMAGE, SITE_COUNTRY_CODE, SITE_DESCRIPTION, SITE_EMAIL, SITE_NAME, SITE_REGION, SITE_URL } from "@/lib/site";
 
 const DEFAULT_TITLE = "SparkV | Custom Software, AI Agents & Business Automation";
 
@@ -58,6 +58,9 @@ const siteJsonLd = {
       url: SITE_URL,
       logo: { "@type": "ImageObject", url: `${SITE_URL}/sparkv-logo.png` },
       description: SITE_DESCRIPTION,
+      email: SITE_EMAIL,
+      address: { "@type": "PostalAddress", addressRegion: SITE_REGION, addressCountry: SITE_COUNTRY_CODE },
+      contactPoint: { "@type": "ContactPoint", contactType: "customer support", email: SITE_EMAIL },
     },
     {
       "@type": "WebSite",

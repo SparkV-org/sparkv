@@ -7,6 +7,11 @@
  */
 export const SITE_URL = "https://www.sparkv.si";
 export const SITE_NAME = "SparkV";
+/** Public contact details, supplied by the site owner. Shown in the footer and mirrored in the Organization schema. */
+export const SITE_EMAIL = "sparkv.info@gmail.com";
+export const SITE_REGION = "Telangana";
+export const SITE_COUNTRY_CODE = "IN";
+export const SITE_COUNTRY = "India";
 export const SITE_TAGLINE = "Custom software, AI agents & business automation";
 export const SITE_DESCRIPTION =
   "SparkV designs and builds websites, web apps, AI agents, and business automation—production-ready software for founders, operators, and engineering teams.";

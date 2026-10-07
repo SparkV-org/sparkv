@@ -69,6 +69,30 @@ export default function ServicesPage() {
             </li>
           ))}
         </ul>
+        <section aria-labelledby="which">
+          <h2 id="which">Which service fits which problem</h2>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.95rem" }}>
+              <thead>
+                <tr>
+                  <th scope="col" style={{ textAlign: "left", padding: "10px 12px", borderBottom: "1px solid var(--line)" }}>Service</th>
+                  <th scope="col" style={{ textAlign: "left", padding: "10px 12px", borderBottom: "1px solid var(--line)" }}>A problem it addresses</th>
+                  <th scope="col" style={{ textAlign: "left", padding: "10px 12px", borderBottom: "1px solid var(--line)" }}>Includes, for example</th>
+                </tr>
+              </thead>
+              <tbody>
+                {SERVICES.map((s) => (
+                  <tr key={s.slug}>
+                    <th scope="row" style={{ textAlign: "left", padding: "10px 12px", borderBottom: "1px solid var(--line)" }}><Link href={`/services/${s.slug}`}>{s.name}</Link></th>
+                    <td style={{ padding: "10px 12px", borderBottom: "1px solid var(--line)" }}>{s.problems[0]}</td>
+                    <td style={{ padding: "10px 12px", borderBottom: "1px solid var(--line)" }}>{s.included.slice(0, 2).join("; ")}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p>SparkV does not publish fixed prices or timelines; they depend on scope, integrations, security, and rollout needs.</p>
+        </section>
         <section className="sub-final" aria-labelledby="next">
           <h2 id="next">Not sure which service fits?</h2>
           <p>Describe what you are trying to build, automate, or improve. SparkV will turn it into a technical path forward.</p>
