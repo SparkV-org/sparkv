@@ -576,3 +576,13 @@ html,body{overflow-x:clip}
  .chart-bars>span,.chart-bars>span i,.channel-health>div:not(.panel-title){transition:none}
  .channel-health>div.flash>i{animation:none}
 }
+
+/* --- Magnetic CTAs + hero parallax (values set by components/motion-enhancements.tsx) --- */
+.is-magnetic{translate:calc(var(--mx,0)*1px) calc(var(--my,0)*1px);transition:translate .18s ease-out,transform .2s,box-shadow .25s,background-color .25s,border-color .25s}
+.is-magnetic svg{translate:calc(var(--mx,0)*.35px) calc(var(--my,0)*.35px);transition:translate .18s ease-out,transform .25s cubic-bezier(.2,.8,.2,1)}
+.is-magnetic:not(:hover){transition-duration:.45s,.2s,.25s,.25s,.25s}
+@media(min-width:921px) and (prefers-reduced-motion:no-preference){
+ .hero-grid{translate:0 calc(var(--py,0)*-.04px);will-change:translate}
+ .hero-glow{translate:0 calc(var(--py,0)*.12px);will-change:translate}
+ .system-stage{translate:0 calc(var(--py,0)*-.07px);will-change:translate}
+}
