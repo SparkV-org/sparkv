@@ -663,3 +663,7 @@ fieldset.project-fieldset>legend{padding:0;margin-bottom:12px}
 html[data-theme="light"] .workflow-state small{color:#c8101a}
 html[data-theme="light"] .eyebrow,html[data-theme="light"] .hero-meta,html[data-theme="light"] .stage-topline,html[data-theme="light"] .hero-meta span,html[data-theme="light"] .stage-topline span{color:rgba(0,0,0,.62)}
 .hero-grid,.hero-glow,.hero .system-lines,.hero .system-ring,.visual-sheen{pointer-events:none}
+
+/* form consent note */
+.form-consent{grid-column:1/-1;margin:14px 0 0;font-size:12px;line-height:1.5;color:inherit;opacity:.78}
+.form-consent a{text-decoration:underline;text-underline-offset:2px}
