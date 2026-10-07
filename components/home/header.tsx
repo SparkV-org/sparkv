@@ -1,0 +1,12 @@
+"use client";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, Menu, Moon, Sun, X } from "lucide-react";
+import { SparkVLogo } from "@/components/sparkv-logo";
+
+export function SiteHeader(){
+ const [dark,setDark]=useState(true),[menu,setMenu]=useState(false);
+ useEffect(()=>{const s=localStorage.getItem("sparkv-theme"),v=s?s==="dark":matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=v?"dark":"light";document.documentElement.style.colorScheme=v?"dark":"light";queueMicrotask(()=>setDark(v))},[]);
+ useEffect(()=>{const h=document.querySelector(".site-header");const onScroll=()=>h?.classList.toggle("is-scrolled",window.scrollY>24);onScroll();window.addEventListener("scroll",onScroll,{passive:true});const links=document.querySelectorAll<HTMLAnchorElement>(".desktop-nav a");const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.classList.toggle("active",l.hash==="#"+e.target.id))}),{rootMargin:"-45% 0px -50% 0px"});["services","systems","work","process","about"].forEach(id=>{const n=document.getElementById(id);if(n)io.observe(n)});const onKey=(e:KeyboardEvent)=>{if(e.key==="Escape")setMenu(false)};window.addEventListener("keydown",onKey);return()=>{window.removeEventListener("scroll",onScroll);window.removeEventListener("keydown",onKey);io.disconnect()}},[]);
+ const toggleTheme=()=>{const v=!dark;setDark(v);localStorage.setItem("sparkv-theme",v?"dark":"light");document.documentElement.dataset.theme=v?"dark":"light";document.documentElement.style.colorScheme=v?"dark":"light"};
+ return <header className="site-header"><a href="#top" className="brand" aria-label="SparkV home"><SparkVLogo/></a><nav className="desktop-nav"><a href="#services">Services</a><a href="#systems">Systems</a><a href="#work">Work</a><a href="#process">Process</a><a href="#about">About</a></nav><div className="header-actions"><button className="icon-button" onClick={toggleTheme} aria-label={dark?"Switch to light theme":"Switch to dark theme"}>{dark?<Sun size={16}/>:<Moon size={16}/>}</button><a href="#contact" className="header-cta">Start a project <ArrowUpRight size={15}/></a><button className="menu-button" onClick={()=>setMenu(!menu)} aria-expanded={menu} aria-label="Toggle menu">{menu?<X/>:<Menu/>}</button></div><div className={`mobile-menu ${menu?"open":""}`}>{["services","systems","work","process","about","contact"].map(x=><a key={x} href={`#${x}`} onClick={()=>setMenu(false)}>{x[0].toUpperCase()+x.slice(1)}</a>)}</div></header>
+}
