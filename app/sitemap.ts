@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: absoluteUrl("/"), lastModified, priority: 1 },
     { url: absoluteUrl("/services"), lastModified, priority: 0.8 },
+    { url: absoluteUrl("/privacy"), lastModified, priority: 0.3 },
     ...SERVICES.map((s) => ({ url: absoluteUrl(`/services/${s.slug}`), lastModified, priority: 0.7 })),
   ];
 }
