@@ -1,0 +1,42 @@
+{
+  "_comment": "Budgets for the LAB (Lighthouse simulated mobile, 4x CPU, slow 4G, cold cache, production build via `next start`). They are NOT field budgets: field p75 from Vercel Speed Insights is the source of truth. See docs/PERFORMANCE.md for derivation. Raise a value only in a PR that includes measured justification.",
+  "measuredOn": {
+    "commits": "9030df7, 9ed239b, de04365 (bench/*.json, 3-7 runs each) and seo-* runs on 421a98d (3 runs each)",
+    "hardware": "Apple M1 Pro, Chrome 154, Lighthouse 13.5, Node 22",
+    "caveat": "GitHub-hosted runners are slower and noisier than the M1 used to measure; LHCI uses the median of 5 runs and headroom of 20-30%."
+  },
+  "static": {
+    "_comment": "Checked by scripts/check-budgets.mjs from the .next build output, no browser. Sizes are gzip bytes of files referenced by the prerendered homepage HTML.",
+    "homepageFirstLoadJsGzipBytes": 175000,
+    "totalCssGzipBytes": 40000,
+    "fontFiles": 0,
+    "publicImageBytes": 1700000
+  },
+  "lab": {
+    "_comment": "Enforced by lighthouserc.json. Units: ms, score 0-1, KiB-as-bytes where noted.",
+    "categories": { "performance": 0.95, "accessibility": 0.95, "seo": 0.95, "best-practices": 0.95 },
+    "metrics": {
+      "largest-contentful-paint": 2800,
+      "first-contentful-paint": 1400,
+      "total-blocking-time": 150,
+      "cumulative-layout-shift": 0.02,
+      "server-response-time": 200,
+      "mainthread-work-breakdown": 3000
+    },
+    "resourceSummaryBytes": {
+      "script": 190000,
+      "stylesheet": 40000,
+      "font": 0,
+      "image": 1650000,
+      "third-party": 0
+    },
+    "resourceSummaryCounts": {
+      "total": 30,
+      "third-party": 0,
+      "font": 0
+    }
+  },
+  "fieldOnly": {
+    "INP": "Not measurable in lab Lighthouse. Track p75 in Vercel Speed Insights; target <= 200 ms (Google 'good')."
+  }
+}

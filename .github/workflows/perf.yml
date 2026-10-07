@@ -1,0 +1,43 @@
+name: perf
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: perf-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  budgets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      VERCEL_ENV: production
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npx tsc --noEmit --incremental false
+      - run: npm run build
+      - name: Static budgets (no browser)
+        run: node scripts/check-budgets.mjs
+      - name: Lighthouse CI (median of 5 runs, mobile, simulated throttling)
+        run: npx --yes @lhci/cli@0.14.x autorun --config=lighthouserc.json
+      - name: Upload Lighthouse results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-${{ github.sha }}
+          path: .lighthouseci
+          retention-days: 90
+          if-no-files-found: ignore
