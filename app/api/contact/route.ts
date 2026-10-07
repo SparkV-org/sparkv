@@ -9,6 +9,9 @@ const ALLOWED_PROJECT_TYPES = new Set([
 
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_PER_WINDOW = 5;
+const MAX_BODY_BYTES = 16 * 1024;
+// In-memory and per-instance: on serverless each warm instance keeps its own counter, so this is
+// best-effort abuse damping only. Use a shared store (e.g. Upstash/Vercel KV) or WAF rules for hard limits.
 const hits = new Map<string, number[]>();
 
 function rateLimited(ip: string) {
@@ -26,8 +29,20 @@ function text(value: unknown, maxLength: number) {
 
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
-  if (origin && new URL(origin).host !== request.headers.get("host")) {
-    return NextResponse.json({ error: "Invalid request." }, { status: 403 });
+  if (origin) {
+    let originHost: string | null = null;
+    try {
+      originHost = new URL(origin).host;
+    } catch {
+      originHost = null; // malformed (or "null") Origin
+    }
+    if (originHost !== request.headers.get("host")) {
+      return NextResponse.json({ error: "Invalid request." }, { status: 403 });
+    }
+  }
+  const declared = Number(request.headers.get("content-length") ?? 0);
+  if (declared > MAX_BODY_BYTES) {
+    return NextResponse.json({ error: "Request too large." }, { status: 413 });
   }
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
   if (rateLimited(ip)) {
@@ -36,7 +51,13 @@ export async function POST(request: Request) {
 
   let body: Record<string, unknown>;
   try {
-    body = await request.json();
+    const raw = await request.text();
+    if (raw.length > MAX_BODY_BYTES) {
+      return NextResponse.json({ error: "Request too large." }, { status: 413 });
+    }
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) throw new Error("not an object");
+    body = parsed as Record<string, unknown>;
   } catch {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
@@ -47,6 +68,9 @@ export async function POST(request: Request) {
   const email = text(body.email, 254).toLowerCase();
   const projectType = text(body.projectType, 50);
   const brief = text(body.brief, 5000);
+  if (/[\r\n]/.test(name) || /[\r\n]/.test(email)) {
+    return NextResponse.json({ error: "Invalid request." }, { status: 422 });
+  }
   if (name.length < 2 || !EMAIL_PATTERN.test(email) || !ALLOWED_PROJECT_TYPES.has(projectType) || brief.length < 10) {
     return NextResponse.json(
       { error: "Please complete every field with valid project information." },
@@ -68,17 +92,25 @@ export async function POST(request: Request) {
   const project = { name, email, projectType, brief };
   const ownerEmail = ownerProjectTemplate(project);
   const thankYouEmail = visitorThankYouTemplate(project);
-  const response = await fetch("https://api.resend.com/emails/batch", {
+  let response: Response;
+  try {
+    response = await fetch("https://api.resend.com/emails/batch", {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify([
       { from, to: [to], reply_to: email, ...ownerEmail },
       { from, to: [email], reply_to: to, ...thankYouEmail },
     ]),
-  });
+      signal: AbortSignal.timeout(10_000),
+    });
+  } catch {
+    console.error("Resend request failed or timed out");
+    return NextResponse.json({ error: "We could not deliver your project brief. Please try again." }, { status: 502 });
+  }
 
   if (!response.ok) {
-    console.error("Resend rejected contact submission", response.status, await response.text());
+    // Log status only: the response body may echo submitted PII.
+    console.error("Resend rejected contact submission", response.status);
     return NextResponse.json(
       { error: "We could not deliver your project brief. Please try again." },
       { status: 502 },

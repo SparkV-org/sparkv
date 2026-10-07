@@ -647,3 +647,12 @@ html[data-theme="light"] .hero-audience{color:rgba(0,0,0,.72)}
 .contact-section .contact-copy p,.contact-section .contact-copy .section-label{color:#55555c}
 .sub-related a em{color:#ff6a72}
 :root[data-theme="light"] .sub-related a em{color:#c8101a}
+
+/* a11y-agent */
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.agent-messages:focus-visible,.agent-panel button:focus-visible,.agent-panel input:focus-visible,.agent-launcher:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+fieldset.project-fieldset{border:0;margin:0;padding:0;min-width:0}
+fieldset.project-fieldset>legend{padding:0;margin-bottom:12px}
+.project-types input[type=radio]:focus-visible+span{outline:2px solid var(--red);outline-offset:3px}
+.intake [aria-invalid="true"]{border-color:#d91520}
+@media(prefers-reduced-motion:reduce){.site-agent *,.mobile-menu,.header-cta{transition:none!important;animation:none!important}}
