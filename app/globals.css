@@ -679,3 +679,12 @@ html[data-theme="light"] .eyebrow,html[data-theme="light"] .hero-meta,html[data-
 :root[data-theme="light"] .sub-menu nav a{border-bottom-color:rgba(0,0,0,.08)}
 .table-scroll:focus-visible,.sub-menu summary:focus-visible,.sub-menu nav a:focus-visible{outline:2px solid var(--red,#ff3b30);outline-offset:2px}
 @media(max-width:920px){.sub-menu{display:block}.site-header .header-actions .header-cta{display:none}}
+/* a11y-3: AA text contrast. Dim text on the always-dark dashboard/architecture panels, red/green text on light or dark surfaces. */
+:root{--dim-on-dark:#808088;--red-on-dark:#f8262f;--red-text:#dc1019;--green-text:#14804a}
+html[data-theme="dark"]{--red-text:#f8262f;--green-text:#40b87a}
+.chart-days,.channel-health small,.dash-head small,.metric-row small,.metric-row span,.panel-title small,.dash-rail nav span,.arch-node small{color:var(--dim-on-dark)}
+.dash-rail nav span.on{color:#fff}
+.platform-stack>div>i{color:var(--green-text)}
+.principles span,.catalog-grid article>span,.workflow-node small,.workflow-state small,.flow-step.done small,.flow-step.active small{color:var(--red-text)}
+.approval-flow article>span{color:var(--red-on-dark)}
+.tech-strip:focus-visible{outline:2px solid var(--red-text);outline-offset:4px}
