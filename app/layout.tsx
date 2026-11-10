@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "./fx.css";
+import "./showcase.css";
+import "./intro.css";
+import "./mobile.css";
 import { JsonLd } from "@/components/json-ld";
 import Telemetry from "@/components/telemetry";
 import { BING_SITE_VERIFICATION, GOOGLE_SITE_VERIFICATION, IS_INDEXABLE, SOCIAL_PROFILES, OG_IMAGE, SITE_COUNTRY_CODE, SITE_DESCRIPTION, SITE_EMAIL, SITE_NAME, SITE_REGION, SITE_URL } from "@/lib/site";
@@ -65,7 +69,7 @@ const siteJsonLd = {
       "@id": `${SITE_URL}/#organization`,
       name: SITE_NAME,
       url: SITE_URL,
-      logo: { "@type": "ImageObject", url: `${SITE_URL}/sparkv-logo.png` },
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/sparkv-logo-dark.webp` },
       description: SITE_DESCRIPTION,
       email: SITE_EMAIL,
       address: { "@type": "PostalAddress", addressRegion: SITE_REGION, addressCountry: SITE_COUNTRY_CODE },
@@ -90,7 +94,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var s=localStorage.getItem("sparkv-theme");var d=s?s==="dark":matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=d?"dark":"light";document.documentElement.style.colorScheme=d?"dark":"light"}catch(e){}})()`,
+            __html: `(function(){try{var s=localStorage.getItem("sparkv-theme");var d=s?s==="dark":matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=d?"dark":"light";document.documentElement.style.colorScheme=d?"dark":"light"}catch(e){}try{if(!sessionStorage.getItem("sparkv-intro")&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("intro-active")}catch(e){}})()`,
           }}
         />
       </head>

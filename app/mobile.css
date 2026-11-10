@@ -1,0 +1,34 @@
+/* Phone-only trims: drop illustration-heavy sections and long card lists so the page reads as a focused scroll. Desktop is untouched. */
+@media (max-width: 760px){
+  /* whole sections that are large visual demos or repeat other content */
+  .command-section,.publish-section,.capability-catalog,.agent-section,.automation-section,.manufacturing-section,.solutions-section{display:none}
+  .engineering-section .code-window{display:none}
+  .section{padding-top:58px;padding-bottom:58px}
+
+  /* mobile products: keep the first four capabilities, drop the delivery path */
+  .sx-mm-grid article:nth-child(n+5),.sx-mm-path{display:none}
+  .sx-mm-head h3{margin-bottom:24px}
+
+  /* venture: keep the example picker, drop the diagram, timeline and half the deliverables */
+  .sx-tenants,.sx-life{display:none}
+  .sx-deliver article:nth-child(n+5){display:none}
+  .sx-ex{padding:20px;gap:0}
+  .sx-venture-card{padding:30px 20px}
+
+  /* agents: drop the shared-foundations strip */
+  .sx-brain{display:none}
+  .sx-agent-panel{padding:22px}
+
+  /* approval loop: smaller phone, tighter steps */
+  .sx-loop-grid{gap:28px;margin-top:30px}
+  .sx-phone{max-width:300px}
+
+  /* selected builds: two cards, problem statement only */
+  .sx-work-grid .project-card:nth-child(3),.sx-case-promise,.sx-proj-detail>div:nth-child(n+2){display:none}
+  .sx-work-grid .project-art{min-height:190px}
+  .sx-work-note{margin-top:22px}
+
+  /* footer and intro */
+  .intro-logo{width:88vw}
+  .intro-kicker span{font-size:11px}
+}
