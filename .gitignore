@@ -46,3 +46,6 @@ next-env.d.ts
 /.codex/
 /outputs/
 /work/
+
+# generated voice audition clips
+/scripts/voice-samples/
