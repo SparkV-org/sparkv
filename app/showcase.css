@@ -39,7 +39,6 @@
 .sx-tiles span{width:46px;height:46px;display:grid;place-items:center;border-radius:9px;font:800 14px monospace;background:linear-gradient(135deg,#e0101a,#3a0408);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
 .sx-tiles span:nth-child(2){background:linear-gradient(135deg,#46464c,#0d0d0f)}.sx-tiles span:nth-child(3){background:linear-gradient(135deg,#ffffff33,#8b0a10)}
 .sx-ok{display:flex;gap:7px;align-items:center;color:#ff9aa0}
-.sx-chips em.sx-x{display:none}
 .sx-explain .sx-kicker{margin-bottom:6px}
 .sx-explain h3{margin:0 0 12px;font-size:clamp(1.4rem,2.3vw,1.9rem);letter-spacing:-.035em;font-weight:560}
 .sx-split{display:grid;grid-template-columns:1fr 1fr;gap:10px}

@@ -4,12 +4,13 @@
     "commits": "9030df7, 9ed239b, de04365 (bench/*.json, 3-7 runs each) and seo-* runs on 421a98d (3 runs each)",
     "hardware": "Apple M1 Pro, Chrome 154, Lighthouse 13.5, Node 22",
     "merged-build-measurement": "Homepage first-load JS measured 191151 gzip bytes on 48f4d43 (200572 before the server-component refactor); homepage total transfer ~218 KB incl. images served via next/image. Static JS budget = measured + ~5%; lab image budget replaces a figure derived from the old 1.4 MB CSS-background image.",
+    "css-budget-raise": "Static total CSS budget raised 40000 -> 41000 gzip B in the brand/intro PR. Measured 40443 B on a production build of that PR, after removing ~1.7 KB of dead CSS left by the replaced sections (agent orbit, approval flow, venture example, workflow line) and moving static venture copy out of client JS (first-load JS is 199680 B, under its unchanged 200000 B budget). The remaining overage is the new intro, motion layer and section styles (app/intro.css, fx.css, showcase.css, mobile.css). Headroom is ~1.4%, tighter than the usual ~5%, on purpose.",
     "caveat": "GitHub-hosted runners are slower and noisier than the M1 used to measure; LHCI uses the median of 5 runs and headroom of 20-30%."
   },
   "static": {
     "_comment": "Checked by scripts/check-budgets.mjs from the .next build output, no browser. Sizes are gzip bytes of files referenced by the prerendered homepage HTML.",
     "homepageFirstLoadJsGzipBytes": 200000,
-    "totalCssGzipBytes": 40000,
+    "totalCssGzipBytes": 41000,
     "fontFiles": 0,
     "publicImageBytes": 1700000
   },

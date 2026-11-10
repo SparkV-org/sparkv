@@ -54,15 +54,16 @@ html[data-theme="dark"] body{background:radial-gradient(1200px 700px at 85% -10%
  .motion-observe.is-visible{transform:none!important}
  .section-label span{transform-origin:left;animation:lineGrow 2.4s ease-in-out infinite alternate}
  @keyframes lineGrow{from{transform:scaleX(.3)}to{transform:scaleX(1.6)}}
- h2 em,.section-intro h2 b{background:linear-gradient(100deg,#ff3b44,#fff,#ff3b44);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:foil 5s linear infinite}
  /* red scan line crossing dark sections */
  .command-section,.dark-section{position:relative}
  .command-section::before,.dark-section::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;z-index:1;background:linear-gradient(90deg,transparent,var(--crimson-hot),transparent);animation:scan 5s ease-in-out infinite;pointer-events:none}
  @keyframes scan{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
  .fx-grain{animation:grain .6s steps(6) infinite}
  @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
- .brush-draw path{stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 2.2s ease forwards .4s}
- @keyframes draw{to{stroke-dashoffset:0}}
 }
 @media(prefers-reduced-motion:reduce){.fx-grain,.fx-cursor,.fx-ring,.fx-progress{display:none}}
 @media(hover:none){.fx-cursor,.fx-ring{display:none}}
+
+/* header logo: the brush check rises above the letters, so lift the image to put the letters at the header's optical centre */
+.brand .sparkv-logo{position:relative;top:-6px}
+@media(max-width:620px){.brand .sparkv-logo{top:-5px}}

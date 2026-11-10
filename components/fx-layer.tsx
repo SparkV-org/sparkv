@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 
-const TILT = ".service-card,.project-card,.process-list article,.principles article,.catalog-grid article,.solution-grid article,.production-feature,.venture-example,.engineering-points>div";
+const TILT = ".service-card,.project-card,.process-list article,.principles article,.catalog-grid article,.solution-grid article,.production-feature,.engineering-points>div";
 const LABELS = ".section-label,.eyebrow,.project-type,.sx-kicker";
 const NUMS = ".card-top>span,.process-list article>span,.principles article>span,.catalog-grid article>span,.solution-grid article>span,.sx-mm-grid article>span,.sx-mm-path b,.sx-life>div>span,.production-flow span,.approval-flow article>span,.stage-topline span:last-child";
 const GLYPHS = "01ABCDEFXYZ<>/#$%&";
